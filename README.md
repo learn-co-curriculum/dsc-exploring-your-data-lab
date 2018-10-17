@@ -327,10 +327,11 @@ walmart.hist(figsize = (20,18));
 ```
 
 ### Build normalized histograms with kde plots to explore the distributions further. 
+### Use only the continuous variables for visualising probability densities and KDEs. 
 
 
 ```python
-for column in ['Store', 'Dept', 'Size',
+for column in ['Size',
        'Temperature', 'Fuel_Price', 'CPI', 'Unemployment', 'Weekly_Sales']:
     walmart[column].plot.hist(normed=True )
     walmart[column].plot.kde(label=column )
@@ -360,14 +361,6 @@ for column in ['Store', 'Dept', 'Size',
 
 
 ![png](index_files/index_13_5.png)
-
-
-
-![png](index_files/index_13_6.png)
-
-
-
-![png](index_files/index_13_7.png)
 
 
 
