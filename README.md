@@ -315,6 +315,7 @@ In the previous lab, we performed some data cleansing and scrubbing activities t
 ```
 
 ### Build normalized histograms with kde plots to explore the distributions further. 
+### nUse only the continuous variables in the dataset to plot these visualizations. 
 
 
 ```python
