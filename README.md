@@ -323,13 +323,6 @@ In the previous lab, we performed some data cleansing and scrubbing activities t
 ```
 
 
-![png](index_files/index_13_0.png)
-
-
-
-![png](index_files/index_13_1.png)
-
-
 
 ![png](index_files/index_13_2.png)
 
