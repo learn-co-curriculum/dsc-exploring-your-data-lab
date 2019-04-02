@@ -3,7 +3,7 @@
 
 ## Introduction 
 
-In this lab we shall perform a exploratory data analysis task, using statistical and visual EDA skills we have seen so far. We shall continue using the Walmart sales database that we have acquired and cleaned in the previous labs. 
+In this lab you'll perform a exploratory data analysis task, using statistical and visual EDA skills that you've seen so far. You'll be building upon the previous lessons, using the Walmart sales database that you've acquired and cleaned. 
 
 ## Objectives
 You will be able to:
@@ -14,11 +14,13 @@ You will be able to:
 
 ## Data Exploration
 
-In the previous lab, we performed some data cleansing and scrubbing activities to create data subset, deal with null values and categorical variables etc. In this lab, we shall perform basic data exploration to help us better understand the distributions of our variables. We shall consider regression assumptions seen earlier to help us during the modeling process. 
+In the previous lab, you performed some data cleansing and scrubbing activities to subset the data, deal with null values, transform categorical variables and normalize numerical features. In this lab, you'll further explore the dataset better understand the distributions of each variable. 
 
-*The dataset for this lab has been taken from our data scrubbing lab, just before we encoded our categorical variables as one hot. This is to keep the number of columns same as original dataset to allow more convenience during exploration.* 
+*The dataset for this lab has been taken from the data scrubbing lab, just before we encoded our categorical variables as one-hot encoding via `pd.get_dummies()`. This is to reduce filesize as the `pd.get_dummies()` method creates a large number of corresponding features.*
 
-### Load the dataset 'walmart_dataset.csv' as pandas dataframe and check its contents 
+### Load and Preview the Dataset
+
+Load the 'walmart_dataset.csv' dataset in this directory as a pandas DataFrame and briefly preview its contents.
 
 
 ```python
@@ -160,7 +162,9 @@ In the previous lab, we performed some data cleansing and scrubbing activities t
 
 
 
-### Describe the dataset using 5 point statistics and record your observations
+### Check Summary Statistics
+
+Print a display of summary statistics for each of the features including mean, median, std, minimum and maximum.
 
 
 ```python
@@ -298,7 +302,9 @@ In the previous lab, we performed some data cleansing and scrubbing activities t
 # Your observations here 
 ```
 
-### Use pandas histogram plotting to plot histograms for all the variables in the dataset
+### Plot Feature Histograms
+
+As an initial exploration, plot histograms for the distribution of each of the features in your DataFrame.
 
 
 ```python
@@ -314,13 +320,21 @@ In the previous lab, we performed some data cleansing and scrubbing activities t
 # Your observations here 
 ```
 
-### Build normalized histograms with kde plots to explore the distributions further. 
-### Use only the continuous variables in the dataset to plot these visualizations. 
+### Create KDE Plots
+
+KDE stands for kernel density estimation. Essentially, it allows you to estimate a corresponding distribution associated with the finite datset you have for each feature. Seaborn has a useful built in method for generating said plots. Use it to plot the distribution and estimated density function associated with each of your continuous variables.
 
 
 ```python
 # Your code here 
 ```
+
+
+![png](index_files/index_13_0.png)
+
+
+
+![png](index_files/index_13_1.png)
 
 
 
@@ -352,7 +366,9 @@ In the previous lab, we performed some data cleansing and scrubbing activities t
 # State your observations here 
 ```
 
-### Build joint plots to check for the linearity assumption between predictors and target variable
+### Check Linearity Assumptions
+
+Build joint plots to check for the linearity assumption between predictors and target variable
 
 Let's use a slightly more advanced plotting technique in seaborn that uses scatter plots, distributions, kde and simple regression line - all in a single go. Its called a `jointplot`. [Here is the official doc. for this method](https://seaborn.pydata.org/generated/seaborn.jointplot.html). 
 
