@@ -288,15 +288,6 @@ df.describe()
 
 
 
-
-```python
-# Above shows basic statistics for all the "numerical" columns in the dataset. 
-# We are seeing some of the categorical variables as continuous, like store and dept. 
-# We wont be considering the means and sd values for such variables. 
-# We dont get any statitics here for markdown columns due to excessive Nans.
-# We did look into these columns and basic stats during the last lab.
-```
-
 ### Use pandas histogram plotting to plot histograms for all the variables in the dataset
 
 
@@ -305,7 +296,7 @@ df.hist(figsize = (20,18));
 ```
 
 
-![png](index_files/index_11_0.png)
+![png](index_files/index_10_0.png)
 
 
 Note how skewed most of these distributions are. While linear regression does not assume that each of the individual predictors are normally distributed, it does assume a linear relationship between the predictors and the target variable (list_price in this case). To further investigate if this assumption holds true, you can plot some single variable regression plots of each feature against the target variable using seaborn.
@@ -320,7 +311,7 @@ sns.jointplot("piece_count","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_14_0.png)
+![png](index_files/index_13_0.png)
 
 
 
@@ -329,7 +320,7 @@ sns.jointplot("num_reviews","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_15_0.png)
+![png](index_files/index_14_0.png)
 
 
 
@@ -338,7 +329,7 @@ sns.jointplot("play_star_rating","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_16_0.png)
+![png](index_files/index_15_0.png)
 
 
 > *Comment:* Play start rating doesn't seem to have much of a linear relationship with list_price  
@@ -349,7 +340,7 @@ sns.jointplot("star_rating", "list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_18_0.png)
+![png](index_files/index_17_0.png)
 
 
 > *Comment:* Again little to no linear relation.
@@ -360,7 +351,7 @@ sns.jointplot("val_star_rating", "list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_20_0.png)
+![png](index_files/index_19_0.png)
 
 
 > *Comment:* Again little to no linear relation.
@@ -462,7 +453,7 @@ sns.heatmap(corr, center=0, annot=True);
 ```
 
 
-![png](index_files/index_25_0.png)
+![png](index_files/index_24_0.png)
 
 
 > Comments: The rating features show little promise for adding predictive power towards the list_price. This diminishes worry concerning their high correlation. That said, the two most promising predictors: piece_count and num_reviews also display fairly high correlation. Further analysis of an intial model will clearly be warranted.
