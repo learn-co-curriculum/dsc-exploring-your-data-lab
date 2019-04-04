@@ -1,9 +1,9 @@
 
-# Exploring Our Data
+# Exploring Your Data
 
 ## Introduction 
 
-In this lab we shall perform a exploratory data analysis task, using statistical and visual EDA skills we have seen so far. We shall continue using the Walmart sales database that we have acquired and cleaned in the previous labs. 
+In this lab you'll perform a exploratory data analysis task, using statistical and visual EDA skills. You'll continue using the Lego dataset that you've acquired and cleaned in the previous labs. 
 
 ## Objectives
 You will be able to:
@@ -14,11 +14,15 @@ You will be able to:
 
 ## Data Exploration
 
-In the previous lab, we performed some data cleansing and scrubbing activities to create data subset, deal with null values and categorical variables etc. In this lab, we shall perform basic data exploration to help us better understand the distributions of our variables. We shall consider regression assumptions seen earlier to help us during the modeling process. 
+At this point, you've already done a modest amount of data exploration between investigating the initial database to further exploring individual features while cleaning things up in preparation for modelling. During this process, you've become more familiar with the particular idiosyncracies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an intial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
 
-*The dataset for this lab has been taken from our data scrubbing lab, just before we encoded our categorical variables as one hot. This is to keep the number of columns same as original dataset to allow more convenience during exploration.* 
+### Load the dataset 'Lego_dataset_cleaned.csv'  and Check its Contents 
 
-### Load the dataset 'walmart_dataset.csv' as pandas dataframe and check its contents 
+
+```python
+import warnings
+warnings.filterwarnings('ignore')
+```
 
 
 ```python
@@ -27,8 +31,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 plt.style.use('seaborn')
-walmart = pd.read_csv('walmart_dataset.csv')
-walmart.head()
+df = pd.read_csv('Lego_dataset_cleaned.csv')
+df.head()
 ```
 
 
@@ -52,113 +56,107 @@ walmart.head()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Store</th>
-      <th>Dept</th>
-      <th>Weekly_Sales</th>
-      <th>IsHoliday</th>
-      <th>Type</th>
-      <th>Size</th>
-      <th>Temperature</th>
-      <th>Fuel_Price</th>
-      <th>CPI</th>
-      <th>Unemployment</th>
-      <th>binned_markdown_1</th>
-      <th>binned_markdown_2</th>
-      <th>binned_markdown_3</th>
-      <th>binned_markdown_4</th>
-      <th>binned_markdown_5</th>
+      <th>prod_id</th>
+      <th>ages</th>
+      <th>piece_count</th>
+      <th>set_name</th>
+      <th>prod_desc</th>
+      <th>prod_long_desc</th>
+      <th>theme_name</th>
+      <th>country</th>
+      <th>list_price</th>
+      <th>num_reviews</th>
+      <th>play_star_rating</th>
+      <th>review_difficulty</th>
+      <th>star_rating</th>
+      <th>val_star_rating</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1</td>
-      <td>1</td>
-      <td>24924.50</td>
-      <td>False</td>
-      <td>A</td>
-      <td>0.283436</td>
-      <td>-1.301205</td>
-      <td>-1.56024</td>
-      <td>0.40349</td>
-      <td>0.913194</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>75823</td>
+      <td>6-12</td>
+      <td>-0.273020</td>
+      <td>Bird Island Egg Heist</td>
+      <td>Catapult into action and take back the eggs fr...</td>
+      <td>Use the staircase catapult to launch Red into ...</td>
+      <td>Angry Birds™</td>
+      <td>US</td>
+      <td>29.99</td>
+      <td>-0.398512</td>
+      <td>-0.655279</td>
+      <td>Average</td>
+      <td>-0.045687</td>
+      <td>-0.365010</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>1</td>
-      <td>2</td>
-      <td>50605.27</td>
-      <td>False</td>
-      <td>A</td>
-      <td>0.283436</td>
-      <td>-1.301205</td>
-      <td>-1.56024</td>
-      <td>0.40349</td>
-      <td>0.913194</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>75822</td>
+      <td>6-12</td>
+      <td>-0.404154</td>
+      <td>Piggy Plane Attack</td>
+      <td>Launch a flying attack and rescue the eggs fro...</td>
+      <td>Pilot Pig has taken off from Bird Island with ...</td>
+      <td>Angry Birds™</td>
+      <td>US</td>
+      <td>19.99</td>
+      <td>-0.398512</td>
+      <td>-0.655279</td>
+      <td>Easy</td>
+      <td>0.990651</td>
+      <td>-0.365010</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1</td>
-      <td>3</td>
-      <td>13740.12</td>
-      <td>False</td>
-      <td>A</td>
-      <td>0.283436</td>
-      <td>-1.301205</td>
-      <td>-1.56024</td>
-      <td>0.40349</td>
-      <td>0.913194</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>75821</td>
+      <td>6-12</td>
+      <td>-0.517242</td>
+      <td>Piggy Car Escape</td>
+      <td>Chase the piggy with lightning-fast Chuck and ...</td>
+      <td>Pitch speedy bird Chuck against the Piggy Car....</td>
+      <td>Angry Birds™</td>
+      <td>US</td>
+      <td>12.99</td>
+      <td>-0.147162</td>
+      <td>-0.132473</td>
+      <td>Easy</td>
+      <td>-0.460222</td>
+      <td>-0.204063</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1</td>
-      <td>4</td>
-      <td>39954.04</td>
-      <td>False</td>
-      <td>A</td>
-      <td>0.283436</td>
-      <td>-1.301205</td>
-      <td>-1.56024</td>
-      <td>0.40349</td>
-      <td>0.913194</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>21030</td>
+      <td>12+</td>
+      <td>0.635296</td>
+      <td>United States Capitol Building</td>
+      <td>Explore the architecture of the United States ...</td>
+      <td>Discover the architectural secrets of the icon...</td>
+      <td>Architecture</td>
+      <td>US</td>
+      <td>99.99</td>
+      <td>0.187972</td>
+      <td>-1.352353</td>
+      <td>Average</td>
+      <td>0.161581</td>
+      <td>0.117830</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>1</td>
-      <td>5</td>
-      <td>32229.38</td>
-      <td>False</td>
-      <td>A</td>
-      <td>0.283436</td>
-      <td>-1.301205</td>
-      <td>-1.56024</td>
-      <td>0.40349</td>
-      <td>0.913194</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>21035</td>
+      <td>12+</td>
+      <td>0.288812</td>
+      <td>Solomon R. Guggenheim Museum®</td>
+      <td>Recreate the Solomon R. Guggenheim Museum® wit...</td>
+      <td>Discover the architectural secrets of Frank Ll...</td>
+      <td>Architecture</td>
+      <td>US</td>
+      <td>79.99</td>
+      <td>-0.063378</td>
+      <td>-2.049427</td>
+      <td>Challenging</td>
+      <td>0.161581</td>
+      <td>-0.204063</td>
     </tr>
   </tbody>
 </table>
@@ -170,7 +168,7 @@ walmart.head()
 
 
 ```python
-walmart.describe()
+df.describe()
 ```
 
 
@@ -194,45 +192,41 @@ walmart.describe()
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Store</th>
-      <th>Dept</th>
-      <th>Weekly_Sales</th>
-      <th>Size</th>
-      <th>Temperature</th>
-      <th>Fuel_Price</th>
-      <th>CPI</th>
-      <th>Unemployment</th>
+      <th>prod_id</th>
+      <th>piece_count</th>
+      <th>list_price</th>
+      <th>num_reviews</th>
+      <th>play_star_rating</th>
+      <th>star_rating</th>
+      <th>val_star_rating</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>count</th>
-      <td>97839.000000</td>
-      <td>97839.000000</td>
-      <td>97839.000000</td>
-      <td>9.783900e+04</td>
-      <td>9.783900e+04</td>
-      <td>9.783900e+04</td>
-      <td>9.783900e+04</td>
-      <td>9.783900e+04</td>
+      <td>1.087000e+04</td>
+      <td>1.087000e+04</td>
+      <td>10870.000000</td>
+      <td>1.087000e+04</td>
+      <td>1.087000e+04</td>
+      <td>1.087000e+04</td>
+      <td>1.087000e+04</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>5.474545</td>
-      <td>43.318861</td>
-      <td>17223.235591</td>
-      <td>-8.044340e-14</td>
-      <td>2.339480e-13</td>
-      <td>4.784098e-13</td>
-      <td>-9.181116e-15</td>
-      <td>1.795967e-12</td>
+      <td>6.181634e+04</td>
+      <td>1.154959e-16</td>
+      <td>67.309137</td>
+      <td>3.087316e-16</td>
+      <td>3.548158e-14</td>
+      <td>2.524533e-13</td>
+      <td>-1.584896e-13</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>2.892364</td>
-      <td>29.673645</td>
-      <td>25288.572553</td>
+      <td>1.736390e+05</td>
       <td>1.000000e+00</td>
+      <td>94.669414</td>
       <td>1.000000e+00</td>
       <td>1.000000e+00</td>
       <td>1.000000e+00</td>
@@ -240,58 +234,53 @@ walmart.describe()
     </tr>
     <tr>
       <th>min</th>
-      <td>1.000000</td>
-      <td>1.000000</td>
-      <td>-1098.000000</td>
-      <td>-1.611999e+00</td>
-      <td>-3.843452e+00</td>
-      <td>-1.691961e+00</td>
-      <td>-1.958762e+00</td>
-      <td>-2.776898e+00</td>
+      <td>6.300000e+02</td>
+      <td>-6.050659e-01</td>
+      <td>2.272400</td>
+      <td>-4.264402e-01</td>
+      <td>-5.883334e+00</td>
+      <td>-5.641909e+00</td>
+      <td>-5.193413e+00</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>3.000000</td>
-      <td>19.000000</td>
-      <td>2336.485000</td>
-      <td>-1.028620e+00</td>
-      <td>-7.087592e-01</td>
-      <td>-1.053793e+00</td>
-      <td>-1.266966e-01</td>
-      <td>-6.503157e-01</td>
+      <td>2.112300e+04</td>
+      <td>-4.895715e-01</td>
+      <td>21.899000</td>
+      <td>-3.705846e-01</td>
+      <td>-4.810100e-01</td>
+      <td>-4.602216e-01</td>
+      <td>-3.650101e-01</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>6.000000</td>
-      <td>36.000000</td>
-      <td>7658.280000</td>
-      <td>2.834360e-01</td>
-      <td>1.340726e-01</td>
-      <td>1.180741e-01</td>
-      <td>4.995210e-01</td>
-      <td>-4.621274e-02</td>
+      <td>4.207350e+04</td>
+      <td>-3.379852e-01</td>
+      <td>36.587800</td>
+      <td>-2.868011e-01</td>
+      <td>2.160641e-01</td>
+      <td>1.615809e-01</td>
+      <td>1.178302e-01</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>8.000000</td>
-      <td>71.000000</td>
-      <td>20851.275000</td>
-      <td>1.113495e+00</td>
-      <td>8.680410e-01</td>
-      <td>8.243739e-01</td>
-      <td>6.346144e-01</td>
-      <td>7.089160e-01</td>
+      <td>7.124800e+04</td>
+      <td>6.263593e-02</td>
+      <td>73.187800</td>
+      <td>-1.192341e-01</td>
+      <td>5.646012e-01</td>
+      <td>7.833834e-01</td>
+      <td>6.006705e-01</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>10.000000</td>
-      <td>99.000000</td>
-      <td>693099.360000</td>
-      <td>1.171380e+00</td>
-      <td>1.738375e+00</td>
-      <td>2.745691e+00</td>
-      <td>8.517705e-01</td>
-      <td>2.361469e+00</td>
+      <td>2.000431e+06</td>
+      <td>8.466055e+00</td>
+      <td>1104.870000</td>
+      <td>9.795146e+00</td>
+      <td>1.087407e+00</td>
+      <td>9.906510e-01</td>
+      <td>1.244458e+00</td>
     </tr>
   </tbody>
 </table>
@@ -312,144 +301,173 @@ walmart.describe()
 
 
 ```python
-walmart.hist(figsize = (20,18));
+df.hist(figsize = (20,18));
 ```
 
 
-![png](index_files/index_10_0.png)
+![png](index_files/index_11_0.png)
+
+
+Note how skewed most of these distributions are. While linear regression does not assume that each of the individual predictors are normally distributed, it does assume a linear relationship between the predictors and the target variable (list_price in this case). To further investigate if this assumption holds true, you can plot some single variable regression plots of each feature against the target variable using seaborn.
+
+## Check for Linearity
+
+Recall that one assumption in linear regression is that the target variable is linearly related to the input features. As shown in the previous lesson, you can use the `sns.jointplot()` function to investigate whether this relation holds true for the various predictors on hand.
+
+
+```python
+sns.jointplot("piece_count","list_price", data=df, kind="reg");
+```
+
+
+![png](index_files/index_14_0.png)
 
 
 
 ```python
-# Apart from unemployment, most of the variables clearly break the normal assumption
-# There are some obvious outliers in some columns 
-# Data might need extra preprocessing to clean it up a bit more
-```
-
-### Build normalized histograms with kde plots to explore the distributions further. 
-### Use only the continuous variables for visualising probability densities and KDEs. 
-
-
-```python
-for column in ['Size',
-       'Temperature', 'Fuel_Price', 'CPI', 'Unemployment', 'Weekly_Sales']:
-    walmart[column].plot.hist(normed=True )
-    walmart[column].plot.kde(label=column )
-    plt.legend()
-    plt.show()
+sns.jointplot("num_reviews","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_13_0.png)
-
-
-
-![png](index_files/index_13_1.png)
-
-
-
-![png](index_files/index_13_2.png)
-
-
-
-![png](index_files/index_13_3.png)
-
-
-
-![png](index_files/index_13_4.png)
-
-
-
-![png](index_files/index_13_5.png)
+![png](index_files/index_15_0.png)
 
 
 
 ```python
-# This further confirms our observations from  simple histograms
-# A number of distributions are multimodal - they have more than one "typical values"
-# We may need to generate separate plots while fine tuning the number of bins to view the data in a better way
-# e.g. for the output variable weekly sales. 
-```
-
-### Build joint plots to check for the linearity assumption between predictors and target variable
-
-Let's use a slightly more advanced plotting technique in seaborn that uses scatter plots, distributions, kde and simple regression line - all in a single go. Its called a `jointplot`. [Here is the official doc. for this method](https://seaborn.pydata.org/generated/seaborn.jointplot.html). 
-
-Here is how you would use it:
-
-> **`sns.jointplot(x= <column>, y= <column>, data=<dataset>, kind='reg')`**
-
-A joint plot will allow us to visually inspect linearity as well as normality assumptions as a single step. 
-
-
-```python
-for column in ['Store', 'Dept', 'Size',
-       'Temperature', 'Fuel_Price', 'CPI', 'Unemployment']:
-    sns.jointplot(x=column, y="Weekly_Sales",
-                  data=walmart, 
-                  kind='reg', 
-                  label=column,
-                  joint_kws={'line_kws':{'color':'green'}})
-#     sns.regplot(walmart[column], walmart.Weekly_Sales, label=column)
-    plt.legend()
-    plt.show()
+sns.jointplot("play_star_rating","list_price", data=df, kind="reg");
 ```
 
 
 ![png](index_files/index_16_0.png)
 
 
-
-![png](index_files/index_16_1.png)
-
+> *Comment:* Play start rating doesn't seem to have much of a linear relationship with list_price  
 
 
-![png](index_files/index_16_2.png)
+```python
+sns.jointplot("star_rating", "list_price", data=df, kind="reg");
+```
+
+
+![png](index_files/index_18_0.png)
+
+
+> *Comment:* Again little to no linear relation.
+
+
+```python
+sns.jointplot("val_star_rating", "list_price", data=df, kind="reg");
+```
+
+
+![png](index_files/index_20_0.png)
+
+
+> *Comment:* Again little to no linear relation.
+
+## Comments
+
+Well, at first look it appears that the previous efforts in order to fill in the null review values proved of little value. Perhaps this was due to imputing the mean, but as it currently stands, each of the rating features seems to have little to no predictive power for the upcoming model.
+
+## Checking for Multicollinearity
+
+It's also important to make note of whether your predicitive features will result in multicollinearity in the resulting model. While definitive checks for multicollinearity require analyzing the resulting model, predictors with overly high pairwise-correlation (r^2 > .65) are almost certain to produce multicollinearity in a model. With that, take a minute to generate the pairwise [pearson] correlation coefficients of your predictive features and visualizes these coefficients as a heatmap.
+
+
+```python
+#Your code here
+feats = ['piece_count', 'num_reviews', 'play_star_rating','star_rating','val_star_rating']
+corr = df[feats].corr()
+corr
+```
 
 
 
-![png](index_files/index_16_3.png)
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-![png](index_files/index_16_4.png)
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>piece_count</th>
+      <th>num_reviews</th>
+      <th>play_star_rating</th>
+      <th>star_rating</th>
+      <th>val_star_rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>piece_count</th>
+      <td>1.000000</td>
+      <td>0.548783</td>
+      <td>-0.023281</td>
+      <td>0.055481</td>
+      <td>0.057313</td>
+    </tr>
+    <tr>
+      <th>num_reviews</th>
+      <td>0.548783</td>
+      <td>1.000000</td>
+      <td>-0.070892</td>
+      <td>-0.002466</td>
+      <td>0.020471</td>
+    </tr>
+    <tr>
+      <th>play_star_rating</th>
+      <td>-0.023281</td>
+      <td>-0.070892</td>
+      <td>1.000000</td>
+      <td>0.619044</td>
+      <td>0.485843</td>
+    </tr>
+    <tr>
+      <th>star_rating</th>
+      <td>0.055481</td>
+      <td>-0.002466</td>
+      <td>0.619044</td>
+      <td>1.000000</td>
+      <td>0.728203</td>
+    </tr>
+    <tr>
+      <th>val_star_rating</th>
+      <td>0.057313</td>
+      <td>0.020471</td>
+      <td>0.485843</td>
+      <td>0.728203</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
-
-
-![png](index_files/index_16_5.png)
-
-
-
-![png](index_files/index_16_6.png)
 
 
 
 ```python
-# Joint plots further confirm our observations we made earlier.
-# Some distributions are *almost* uniformly distributed while other have multiple common values
-# The normality assumption does not hold strong for predictors.
-# Store, dept, Furl,  temp. and unemployment almost has no clear relationship with sales.
-# For above variables we see a straightline along the y-intercept i.e. no slope > no linear relation
-# CPI has a very weak negative relationship with sales
-# Size of the store has a weak positive realtionship with sales
-
+sns.heatmap(corr, center=0, annot=True);
 ```
 
-### So Now what ?
 
-Okie so our key assumptions at this stage don't hold so strong. But that does not mean that should give up and call it a poor dataset. There are lot of pre-processing techniques we can still apply to further clean the data and make it more suitable for modeling. 
+![png](index_files/index_25_0.png)
 
-![](https://i.stack.imgur.com/yZQgZ.gif)
 
-For building our initial model, we shall use this dataset for a multiple regression experiment and after inspecting the combined effect of all the predictors on the target, we may want to further pre-process the data and take it in for another analytical ride. 
+> Comments: The rating features show little promise for adding predictive power towards the list_price. This diminishes worry concerning their high correlation. That said, the two most promising predictors: piece_count and num_reviews also display fairly high correlation. Further analysis of an intial model will clearly be warranted.
 
-The key takeaway here is that we will hardly come across with a real world dataset that meets all our expectations. Another reason to move ahead with this dataset is to ehelp us realize the importance of pre-processing for an improved model building. and we must always remember: 
-
-> Model development is an iterative process. It hardly ever gets done in the first attempt. 
-
-So looking at above, we shall look at some guidelines on model building and validation in upcoming lessons, before we move on to our regression experiment. 
-
-## Further reading 
+## Further Resources
 
 Have a look at following resources on how to deal with complex datasets that don't meet our initial expectations. 
 
@@ -461,4 +479,4 @@ Have a look at following resources on how to deal with complex datasets that don
 
 ## Summary 
 
-In this lesson we performed some basic EDA on the walmart dataset to check for regression assumptions. Initially our assumptions dont hold very strong but we decided to move ahead with building our first model using this dataset and plan further pre-processing in following iterations. 
+In this lesson you performed some initial EDA onto check for regression assumptions. In the upcoming lessons, you'll continue to carry out a standard data science process and begin to fit and refine an initial model.
