@@ -1,5 +1,5 @@
 
-# Exploring Your Data
+# Exploring Your Data - Lab
 
 ## Introduction 
 
@@ -14,7 +14,7 @@ You will be able to:
 
 ## Data Exploration
 
-At this point, you've already done a modest amount of data exploration between investigating the initial database to further exploring individual features while cleaning things up in preparation for modelling. During this process, you've become more familiar with the particular idiosyncracies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an intial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
+At this point, you've already done a modest amount of data exploration between investigating the initial database to further exploring individual features while cleaning things up in preparation for modeling. During this process, you've become more familiar with the particular idiosyncrasies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an initial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
 
 ### Load the dataset 'Lego_dataset_cleaned.csv'  and Check its Contents 
 
@@ -296,7 +296,7 @@ df.hist(figsize = (20,18));
 ```
 
 
-![png](index_files/index_10_0.png)
+![png](index_files/index_6_0.png)
 
 
 Note how skewed most of these distributions are. While linear regression does not assume that each of the individual predictors are normally distributed, it does assume a linear relationship between the predictors and the target variable (list_price in this case). To further investigate if this assumption holds true, you can plot some single variable regression plots of each feature against the target variable using seaborn.
@@ -311,7 +311,7 @@ sns.jointplot("piece_count","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_13_0.png)
+![png](index_files/index_8_0.png)
 
 
 
@@ -320,7 +320,7 @@ sns.jointplot("num_reviews","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_14_0.png)
+![png](index_files/index_9_0.png)
 
 
 
@@ -329,7 +329,7 @@ sns.jointplot("play_star_rating","list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_15_0.png)
+![png](index_files/index_10_0.png)
 
 
 > *Comment:* Play start rating doesn't seem to have much of a linear relationship with list_price  
@@ -340,7 +340,7 @@ sns.jointplot("star_rating", "list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_17_0.png)
+![png](index_files/index_12_0.png)
 
 
 > *Comment:* Again little to no linear relation.
@@ -351,7 +351,7 @@ sns.jointplot("val_star_rating", "list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_19_0.png)
+![png](index_files/index_14_0.png)
 
 
 > *Comment:* Again little to no linear relation.
@@ -362,7 +362,7 @@ Well, at first look it appears that the previous efforts in order to fill in the
 
 ## Checking for Multicollinearity
 
-It's also important to make note of whether your predicitive features will result in multicollinearity in the resulting model. While definitive checks for multicollinearity require analyzing the resulting model, predictors with overly high pairwise-correlation (r^2 > .65) are almost certain to produce multicollinearity in a model. With that, take a minute to generate the pairwise [pearson] correlation coefficients of your predictive features and visualizes these coefficients as a heatmap.
+It's also important to make note of whether your predictive features will result in multicollinearity in the resulting model. While definitive checks for multicollinearity require analyzing the resulting model, predictors with overly high pairwise-correlation (r^2 > .65) are almost certain to produce multicollinearity in a model. With that, take a minute to generate the pairwise [pearson] correlation coefficients of your predictive features and visualizes these coefficients as a heatmap.
 
 
 ```python
@@ -453,10 +453,10 @@ sns.heatmap(corr, center=0, annot=True);
 ```
 
 
-![png](index_files/index_24_0.png)
+![png](index_files/index_18_0.png)
 
 
-> Comments: The rating features show little promise for adding predictive power towards the list_price. This diminishes worry concerning their high correlation. That said, the two most promising predictors: piece_count and num_reviews also display fairly high correlation. Further analysis of an intial model will clearly be warranted.
+> Comments: The rating features show little promise for adding predictive power towards the list_price. This diminishes worry concerning their high correlation. That said, the two most promising predictors: piece_count and num_reviews also display fairly high correlation. Further analysis of an initial model will clearly be warranted.
 
 ## Further Resources
 
