@@ -1,5 +1,5 @@
 
-# Exploring Your Data
+# Exploring Your Data - Lab
 
 ## Introduction 
 
