@@ -3,20 +3,28 @@
 
 ## Introduction 
 
-In this lab you'll perform a exploratory data analysis task, using statistical and visual EDA skills. You'll continue using the Lego dataset that you've acquired and cleaned in the previous labs. 
+In this lab you'll perform an exploratory data analysis task, using statistical and visual EDA skills. You'll continue using the Lego dataset that you've acquired and cleaned in the previous labs. 
 
 ## Objectives
 You will be able to:
 
 * Check the distribution of various columns
-* Examine the descriptive statistics of our data set
-* Create visualizations to help us better understand our data set
+* Examine the descriptive statistics of our dataset
+* Create visualizations to help us better understand our dataset
 
 ## Data Exploration
 
-At this point, you've already done a modest amount of data exploration between investigating the initial database to further exploring individual features while cleaning things up in preparation for modeling. During this process, you've become more familiar with the particular idiosyncrasies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an initial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
+At this point, you've already done a modest amount of data exploration between investigating the initial dataset to further exploring individual features while cleaning things up in preparation for modeling. During this process, you've become more familiar with the particular idiosyncrasies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an initial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
 
-### Load the dataset 'Lego_dataset_cleaned.csv'  and Check its Contents 
+In the cells below: 
+
+* Import `pandas` and set the standard alias. 
+* Import `numpy` and set the standard alias. 
+* Import `matplotlib.pyplot` and set the standard alias. 
+* Import `seaborn` and set the alias `sns` (this is the standard alias for seaborn). 
+* Use the ipython magic command to set all matplotlib visualizations to display inline in the notebook. 
+* Load the dataset stored in the `'Lego_data_merged.csv'` file into a DataFrame, `df`. 
+* Inspect the head of the DataFrame to ensure everything loaded correctly. 
 
 
 ```python
@@ -207,7 +215,7 @@ df.head()
 
 
 
-### Describe the dataset using 5 point statistics and record your observations
+- Describe the dataset using 5-point statistics. 
 
 
 ```python
@@ -458,7 +466,7 @@ df.describe()
 
 
 
-### Use pandas histogram plotting to plot histograms for all the variables in the dataset
+- Use pandas to plot histograms for all the numeric variables in the dataset. 
 
 
 ```python
@@ -469,7 +477,7 @@ df.hist(figsize = (20,18));
 ![png](index_files/index_7_0.png)
 
 
-Note how skewed most of these distributions are. While linear regression does not assume that each of the individual predictors are normally distributed, it does assume a linear relationship between the predictors and the target variable (list_price in this case). To further investigate if this assumption holds true, you can plot some single variable regression plots of each feature against the target variable using seaborn.
+Note how skewed most of these distributions are. While linear regression does not assume that each of the individual predictors are normally distributed, it does assume a linear relationship between the predictors and the target variable (`list_price` in this case). To further investigate if this assumption holds true, you can plot some single variable regression plots of each feature against the target variable using `seaborn`. 
 
 ## Check for Linearity
 
@@ -477,7 +485,7 @@ Recall that one assumption in linear regression is that the target variable is l
 
 
 ```python
-sns.jointplot("piece_count","list_price", data=df, kind="reg");
+sns.jointplot('piece_count','list_price', data=df, kind='reg');
 ```
 
 
@@ -486,7 +494,7 @@ sns.jointplot("piece_count","list_price", data=df, kind="reg");
 
 
 ```python
-sns.jointplot("num_reviews","list_price", data=df, kind="reg");
+sns.jointplot('num_reviews','list_price', data=df, kind='reg');
 ```
 
 
@@ -495,7 +503,7 @@ sns.jointplot("num_reviews","list_price", data=df, kind="reg");
 
 
 ```python
-sns.jointplot("play_star_rating","list_price", data=df, kind="reg");
+sns.jointplot('play_star_rating','list_price', data=df, kind='reg');
 ```
 
 
@@ -510,7 +518,7 @@ sns.jointplot("play_star_rating","list_price", data=df, kind="reg");
 
 
 ```python
-sns.jointplot("star_rating", "list_price", data=df, kind="reg");
+sns.jointplot('star_rating', 'list_price', data=df, kind='reg');
 ```
 
 
@@ -542,11 +550,11 @@ Well, at first look it appears that the previous efforts in order to fill in the
 
 ## Checking for Multicollinearity
 
-It's also important to make note of whether your predictive features will result in multicollinearity in the resulting model. While definitive checks for multicollinearity require analyzing the resulting model, predictors with overly high pairwise-correlation (r^2 > .65) are almost certain to produce multicollinearity in a model. With that, take a minute to generate the pairwise [pearson] correlation coefficients of your predictive features and visualize these coefficients as a heatmap.
+It's also important to make note of whether your predictive features will result in multicollinearity in the resulting model. While definitive checks for multicollinearity require analyzing the resulting model, predictors with overly high pairwise-correlation (r > .65) are almost certain to produce multicollinearity in a model. With that, take a minute to generate the pairwise (pearson) correlation coefficients of your predictive features and visualize these coefficients as a heatmap.
 
 
 ```python
-#Your code here
+# Your code here
 feats = ['piece_count', 'num_reviews', 'play_star_rating','star_rating','val_star_rating']
 corr = df[feats].corr()
 corr
@@ -636,18 +644,18 @@ sns.heatmap(corr, center=0, annot=True);
 ![png](index_files/index_19_0.png)
 
 
-> Comments: The rating features show little promise for adding predictive power towards the list_price. This diminishes worry concerning their high correlation. That said, the two most promising predictors: piece_count and num_reviews also display fairly high correlation. Further analysis of an initial model will clearly be warranted.
+> Comments: The rating features show little promise for adding predictive power towards the `list_price`. This diminishes worry concerning their high correlation. That said, the two most promising predictors: `piece_count` and `num_reviews` also display fairly high correlation. Further analysis of an initial model will clearly be warranted.
 
 ## Further Resources
 
-Have a look at following resources on how to deal with complex datasets that don't meet our initial expectations. 
+Have a look at following resources on how to deal with complex datasets that don't meet our initial expectations:  
 
-[What to Do When Bad Data Thwarts Machine Learning Success](https://towardsdatascience.com/what-to-do-when-bad-data-thwarts-machine-learning-success-fb82249aae8b)
+- [What to Do When Bad Data Thwarts Machine Learning Success](https://towardsdatascience.com/what-to-do-when-bad-data-thwarts-machine-learning-success-fb82249aae8b)
 
-[Practical advice for analysis of large, complex data sets ](http://www.unofficialgoogledatascience.com/2016/10/practical-advice-for-analysis-of-large.html)
+- [Practical advice for analysis of large, complex data sets ](http://www.unofficialgoogledatascience.com/2016/10/practical-advice-for-analysis-of-large.html)
 
-[Data Cleaning Challenge: Scale and Normalize Data](https://www.kaggle.com/rtatman/data-cleaning-challenge-scale-and-normalize-data)
+- [Data Cleaning Challenge: Scale and Normalize Data](https://www.kaggle.com/rtatman/data-cleaning-challenge-scale-and-normalize-data)
 
 ## Summary 
 
-In this lesson you performed some initial EDA onto check for regression assumptions. In the upcoming lessons, you'll continue to carry out a standard data science process and begin to fit and refine an initial model.
+In this lesson you performed some initial EDA to check for regression assumptions. In the upcoming lessons, you'll continue to carry out a standard Data Science process and begin to fit and refine an initial model.
