@@ -3,18 +3,17 @@
 
 ## Introduction 
 
-In this lab you'll perform an exploratory data analysis task, using statistical and visual EDA skills. You'll continue using the Lego dataset that you've acquired and cleaned in the previous labs. 
+In this lab, you'll perform an EDA task, using your skills with statistics and data visualizations. You'll continue using the Lego dataset that you've acquired and cleaned in the previous labs. 
 
 ## Objectives
 You will be able to:
 
-* Check the distribution of various columns
-* Examine the descriptive statistics of our dataset
-* Create visualizations to help us better understand our dataset
+* Examine the descriptive statistics of our data set
+* Create visualizations to better understand the distributions of variables in a dataset
 
 ## Data Exploration
 
-At this point, you've already done a modest amount of data exploration between investigating the initial dataset to further exploring individual features while cleaning things up in preparation for modeling. During this process, you've become more familiar with the particular idiosyncrasies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an initial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
+At this point, you've already done a modest amount of EDA between investigating the initial dataset to further exploring individual features while cleaning things up in preparation for modeling. During this process, you've become more familiar with the particular idiosyncrasies of the dataset. This gives you an opportunity to uncover difficulties and potential pitfalls in working with the dataset as well as potential avenues for feature engineering that could improve the predictive performance of your model down the line. Remember that this is also not a linear process; after building an initial model, you might go back and continue to mine the dataset for potential inroads to create additional features and improve the model's performance if the initial results did not satisfy your needs and expectations. Here, you'll continue this process, investigating the distributions of some of the various features and their relationship to the target variable: `list_price`.
 
 In the cells below: 
 
@@ -494,16 +493,12 @@ sns.jointplot('piece_count','list_price', data=df, kind='reg');
 
 
 ```python
-sns.jointplot('num_reviews','list_price', data=df, kind='reg');
+# Comment: piece_count seems to have a linear relationship with list_price
 ```
 
 
-![png](index_files/index_10_0.png)
-
-
-
 ```python
-sns.jointplot('play_star_rating','list_price', data=df, kind='reg');
+sns.jointplot('num_reviews','list_price', data=df, kind='reg');
 ```
 
 
@@ -512,7 +507,22 @@ sns.jointplot('play_star_rating','list_price', data=df, kind='reg');
 
 
 ```python
-# Comment: Play star rating doesn't seem to have much of a linear relationship 
+# Comment: There seems to be a some-what linear correlation between num_reviews and list_price
+# Though the relationship is noisier than what we saw with piece_count
+```
+
+
+```python
+sns.jointplot('play_star_rating','list_price', data=df, kind='reg');
+```
+
+
+![png](index_files/index_13_0.png)
+
+
+
+```python
+# Comment: play_star_rating doesn't seem to have much of a linear relationship 
 # with list_price
 ```
 
@@ -522,7 +532,7 @@ sns.jointplot('star_rating', 'list_price', data=df, kind='reg');
 ```
 
 
-![png](index_files/index_13_0.png)
+![png](index_files/index_15_0.png)
 
 
 
@@ -536,7 +546,7 @@ sns.jointplot("val_star_rating", "list_price", data=df, kind="reg");
 ```
 
 
-![png](index_files/index_15_0.png)
+![png](index_files/index_17_0.png)
 
 
 
@@ -544,9 +554,13 @@ sns.jointplot("val_star_rating", "list_price", data=df, kind="reg");
 # Comment: Again, little to no linear relation.
 ```
 
-## Comments
 
-Well, at first look it appears that the previous efforts in order to fill in the null review values proved of little value. Perhaps this was due to imputing the mean, but as it currently stands, each of the rating features seems to have little to no predictive power for the upcoming model.
+```python
+# Comments:
+# Well, at first look it appears that the previous efforts in order to fill in the null review values proved of little value. 
+# Perhaps this was due to imputing the mean, but as it currently stands, each of the rating features seems to have little 
+# to no predictive power for the upcoming model.
+```
 
 ## Checking for Multicollinearity
 
@@ -641,10 +655,17 @@ sns.heatmap(corr, center=0, annot=True);
 ```
 
 
-![png](index_files/index_19_0.png)
+![png](index_files/index_22_0.png)
 
 
-> Comments: The rating features show little promise for adding predictive power towards the `list_price`. This diminishes worry concerning their high correlation. That said, the two most promising predictors: `piece_count` and `num_reviews` also display fairly high correlation. Further analysis of an initial model will clearly be warranted.
+
+```python
+# Comments: 
+# The rating features show little promise for adding predictive power towards the `list_price`. 
+# This diminishes worry concerning their high correlation. 
+# That said, the two most promising predictors: `piece_count` and `num_reviews` also display fairly high correlation. 
+# Further analysis of an initial model will clearly be warranted.
+```
 
 ## Further Resources
 
@@ -658,4 +679,4 @@ Have a look at following resources on how to deal with complex datasets that don
 
 ## Summary 
 
-In this lesson you performed some initial EDA to check for regression assumptions. In the upcoming lessons, you'll continue to carry out a standard Data Science process and begin to fit and refine an initial model.
+In this lesson you performed some initial EDA using descriptive statistics and data visualizations to check for regression assumptions. In the upcoming lessons, you'll continue to carry out a standard Data Science process and begin to fit and refine an initial model.
