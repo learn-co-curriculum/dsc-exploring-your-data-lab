@@ -22,7 +22,7 @@ In the cells below:
 * Import `matplotlib.pyplot` and set the standard alias. 
 * Import `seaborn` and set the alias `sns` (this is the standard alias for seaborn). 
 * Use the ipython magic command to set all matplotlib visualizations to display inline in the notebook. 
-* Load the dataset stored in the `'Lego_data_merged.csv'` file into a DataFrame, `df`. 
+* Load the dataset stored in the `'Lego_data_cleaned.csv'` file into a DataFrame, `df`. 
 * Inspect the head of the DataFrame to ensure everything loaded correctly. 
 
 
