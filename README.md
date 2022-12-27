@@ -1,4 +1,3 @@
-
 # Exploring Your Data - Lab
 
 ## Introduction 
@@ -22,7 +21,7 @@ In the cells below:
 * Import `matplotlib.pyplot` and set the standard alias. 
 * Import `seaborn` and set the alias `sns` (this is the standard alias for seaborn). 
 * Use the ipython magic command to set all matplotlib visualizations to display inline in the notebook. 
-* Load the dataset stored in the `'Lego_data_cleaned.csv'` file into a DataFrame, `df`. 
+* Load the dataset stored in the `'Lego_data_cleaned.csv'` file into a DataFrame. 
 * Inspect the head of the DataFrame to ensure everything loaded correctly. 
 
 
@@ -473,7 +472,9 @@ df.hist(figsize = (20,18));
 ```
 
 
+    
 ![png](index_files/index_7_0.png)
+    
 
 
 Note how skewed most of these distributions are. While linear regression does not assume that each of the individual predictors are normally distributed, it does assume a linear relationship between the predictors and the target variable (`list_price` in this case). To further investigate if this assumption holds true, you can plot some single variable regression plots of each feature against the target variable using `seaborn`. 
@@ -488,7 +489,9 @@ sns.jointplot('piece_count','list_price', data=df, kind='reg');
 ```
 
 
+    
 ![png](index_files/index_9_0.png)
+    
 
 
 
@@ -502,7 +505,9 @@ sns.jointplot('num_reviews','list_price', data=df, kind='reg');
 ```
 
 
+    
 ![png](index_files/index_11_0.png)
+    
 
 
 
@@ -517,7 +522,9 @@ sns.jointplot('play_star_rating','list_price', data=df, kind='reg');
 ```
 
 
+    
 ![png](index_files/index_13_0.png)
+    
 
 
 
@@ -532,7 +539,9 @@ sns.jointplot('star_rating', 'list_price', data=df, kind='reg');
 ```
 
 
+    
 ![png](index_files/index_15_0.png)
+    
 
 
 
@@ -546,7 +555,9 @@ sns.jointplot("val_star_rating", "list_price", data=df, kind="reg");
 ```
 
 
+    
 ![png](index_files/index_17_0.png)
+    
 
 
 
@@ -655,7 +666,9 @@ sns.heatmap(corr, center=0, annot=True);
 ```
 
 
+    
 ![png](index_files/index_22_0.png)
+    
 
 
 
